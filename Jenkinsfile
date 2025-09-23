@@ -7,6 +7,14 @@ pipeline {
                 echo 'Building Docker image with dependencies...'
                 sh 'docker-compose build --no-cache'
             }
+            post {
+                success {
+                    echo 'Saving Docker image as an artefact...'
+                    sh 'docker save cozylightbookstore-cozybookstore | gzip > cozybookstore-image.tar.gz'
+                    archiveArtifacts artifacts: 'cozybookstore-image.tar.gz', fingerprint: true
+                    echo 'Docker image saved and archived.'
+                }
+            }
         }
         stage('Test') {
             steps {
