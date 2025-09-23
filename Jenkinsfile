@@ -35,10 +35,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                sh 'mkdir -p deploy_dir'
-                sh 'unzip -o web-server.zip -d deploy_dir'
-                sh 'cd deploy_dir && npm install --production'
-                sh 'cd deploy_dir && nohup npm start > server.log 2>&1 &'
+                sh '''
+                    mkdir -p deploy_dir
+                    unzip -o web-server.zip -d deploy_dir
+                    cd deploy_dir
+                    npm install --omit=dev
+                    nohup npm start > server.log 2>&1 &
+                '''
                 echo 'Application deployed and running on localhost:3000'
             }
         }
