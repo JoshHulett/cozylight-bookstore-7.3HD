@@ -29,7 +29,12 @@ pipeline {
         }
         stage('Code Analysis') {
             steps {
-                echo 'Analyse code quality.'
+                sh '''
+                curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.2.0.5079-linux-x64.zip
+                unzip -o sonar-scanner.zip
+                export PATH=$PWD/sonar-scanner-7.2.0.5079-linux-x64/bin:$PATH
+                sonar-scanner
+                '''
             }
         }
         stage('Security Scan') {
