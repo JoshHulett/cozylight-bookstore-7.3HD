@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="7" failures="0" errors="0" time="1.369">
+  <testsuite name="CozyLight Bookstore API tests" errors="0" failures="0" skipped="0" timestamp="2025-09-23T12:01:22" time="1.218" tests="7">
+    <testcase classname="CozyLight Bookstore API tests GET / should return 200 and render index page" name="CozyLight Bookstore API tests GET / should return 200 and render index page" time="0.151">
+    </testcase>
+    <testcase classname="CozyLight Bookstore API tests GET /books should return 200 and render books page" name="CozyLight Bookstore API tests GET /books should return 200 and render books page" time="0.014">
+    </testcase>
+    <testcase classname="CozyLight Bookstore API tests GET /bestseller should return 200 and render bestseller page" name="CozyLight Bookstore API tests GET /bestseller should return 200 and render bestseller page" time="0.012">
+    </testcase>
+    <testcase classname="CozyLight Bookstore API tests GET /product/:id should return 200 for a valid book ID" name="CozyLight Bookstore API tests GET /product/:id should return 200 for a valid book ID" time="0.014">
+    </testcase>
+    <testcase classname="CozyLight Bookstore API tests GET /product/:id should return 404 for an invalid book ID" name="CozyLight Bookstore API tests GET /product/:id should return 404 for an invalid book ID" time="0.011">
+    </testcase>
+    <testcase classname="CozyLight Bookstore API tests POST /submitenquiry should return 200 when data is valid" name="CozyLight Bookstore API tests POST /submitenquiry should return 200 when data is valid" time="0.043">
+    </testcase>
+    <testcase classname="CozyLight Bookstore API tests POST /submitenquiry should return 200 with validation errors when data is invalid" name="CozyLight Bookstore API tests POST /submitenquiry should return 200 with validation errors when data is invalid" time="0.016">
+    </testcase>
+  </testsuite>
+</testsuites>
