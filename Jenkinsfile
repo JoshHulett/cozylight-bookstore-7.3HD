@@ -4,7 +4,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Compile and package code.'
+                echo 'Installing npm dependencies...'
+                sh 'npm install'
+
+                echo 'Creating zip artefact...'
+                sh 'npm run build'
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'web-server.zip', fingerprint: true
+                }
             }
         }
         stage('Test') {
