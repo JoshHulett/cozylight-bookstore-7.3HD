@@ -324,7 +324,7 @@ app.post("/drafts", (req, res) => {
 });
 
 // Tell our application to listen to requests at port 3000 on the localhost
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   // When the application starts, print to the console that our app is
   // running at http://localhost:3000. Print another message indicating
   // how to shut the server down.
