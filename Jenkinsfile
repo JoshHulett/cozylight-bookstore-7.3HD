@@ -4,17 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Installing npm dependencies...'
-                sh 'npm install'
-
-                echo 'Creating zip artefact...'
-                sh 'npm run build'
-            }
-            post {
-                success {
-                    archiveArtifacts artifacts: 'web-server.zip', fingerprint: true
-                    echo 'Build successful, artefact created'
-                }
+                echo 'Building Docker image with dependencies...'
+                sh 'docker-compose build --no-cache'
             }
         }
         stage('Test') {
@@ -34,16 +25,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                sh '''
-                    mkdir -p deploy_dir
-                    unzip -o web-server.zip -d deploy_dir
-                    cd deploy_dir
-                    npm install --omit=dev
-                    pm2 start index.js --name cozybookstore --watch
-                    pm2 save
-                '''
-                echo 'Application deployed and running on localhost:3000'
+                echo 'Deploying application with Docker Compose...'
+                sh 'docker-compose up -d'
+                echo 'Application is now running at http://localhost:3000'
             }
         }
         stage('Release') {
