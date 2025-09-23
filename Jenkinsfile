@@ -13,6 +13,7 @@ pipeline {
             post {
                 success {
                     archiveArtifacts artifacts: 'web-server.zip', fingerprint: true
+                    echo 'Build successful, artefact created'
                 }
             }
         }
@@ -33,7 +34,12 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploy app to staging.'
+                echo 'Deploying application...'
+                sh 'mkdir -p deploy_dir'
+                sh 'unzip -o web-server.zip -d deploy_dir'
+                sh 'cd deploy_dir && npm install --production'
+                sh 'cd deploy_dir && nohup npm start > server.log 2>&1 &'
+                echo 'Application deployed and running on localhost:3000'
             }
         }
         stage('Release') {
