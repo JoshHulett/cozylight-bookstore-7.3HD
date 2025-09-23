@@ -4,6 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo 'Removing existing Docker images and layers...'
+                sh 'docker system prune -af'
                 echo 'Building Docker image with dependencies...'
                 sh 'docker-compose build --no-cache'
             }
