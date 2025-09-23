@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "test": "jest tests"
+    "test": "jest --ci --reporters=default --reporters=jest-junit"
   },
   "keywords": [
     "node",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "jest": "^30.1.3",
+    "jest-junit": "^16.0.0",
     "supertest": "^7.1.4"
   }
 }
