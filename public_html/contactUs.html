@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="stylesheet.css">
+    <!--boostrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!--googlefonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+        rel="stylesheet">
+    <title>Cozylight Books</title>
+</head>
+
+<body>
+    <header>
+        <!--navbar with collapsable elements-->
+        <nav class="navbar navbar-expand-md">
+            <div class="container-fluid px-sm-3 px-md-3 px-lg-4 flex-column gap-1">
+                <div class="d-flex w-100 py-2 justify-content-between align-items-end">
+                    <!--brand/logo-->
+                    <div class="pe-3">
+                        <a class="navbar-brand" href="/">
+                            <img src="images/logo1.png" alt="CozyLight Books" class="img-fluid"
+                                style="max-width: 350px;">
+                        </a>
+                    </div>
+
+                    <!--search bar-->
+                    <div class="px-2">
+                        <form action="/search" method="post" class="d-flex" role="search">
+                            <div class="input-group pb-3">
+                                <input class="form-control" type="search" id="navsearch" name="search" placeholder="Search products"
+                                    aria-label="Search" style="height: 50px; font-size: 18px">
+                                <button class="btn h-100" type="submit" style="height: 50px; font-size: 18px;">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--collapsable icon-->
+                    <button class="navbar-toggler align-self-end mb-3 mx-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false"
+                        aria-label="Toggle Navigation" style="height: 50px">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <!--collapsable nav items, shown on new row on non-sm screens, collapsed on small screens-->
+                <div class="nav-divider mx-auto w-100 my-1"></div>
+                <div class="collapse navbar-collapse w-100" id="navbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-white" href="/books">
+                                <strong>Books</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/bestseller">
+                                <strong>Best Sellers</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="news.html">
+                                <strong>News</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="aboutUs.html">
+                                <strong>About Us</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="contactUs.html">
+                                <strong>Contact Us</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="support.html">
+                                <strong>Support</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/writereview">
+                                <strong>Reviews</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--banner image-->
+    <div class="position-relative w-100 shadow-lg">
+        <img src="images/ContactUsHeader.jpg" alt="Book and Coffee" class="img-fluid">
+    </div>
+
+    <!--div with introduction text-->
+    <div class="overlay p-5 w-100 shadow">
+        <h2 class="display-6"><strong>Contact Us!</strong></h2>
+        <p class="lead"><strong>Need to speak with us? We're excited to hear from you!</strong></p>
+    </div>
+
+    <!--row div, places form and contact information side-by-side on larger screens-->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-12 p-3">
+                <!--customer query form. Built-in validation with unique invalidation message-->
+                <!--responsive, inputs are stacked on small screens-->
+                <form action="/submitenquiry" method="post" id="queryForm">
+                    <div class="body my-4 mx-4 p-4 shadow rounded">
+                        <h5 class="text-secondary">Customer Enquiry</h5>
+                        <div class="row my-2">
+                            <div class="col-12 my-1">
+                                <label for="reason" class="form-label">Why are you contacting us?</label>
+                                <select class="form-select" name="reason" id="reason">
+                                    <option value="" selected>Reason...</option>
+                                    <option value="Product Enquiry">Product Enquiry</option>
+                                    <option value="Event Enquiry">Event Enquiry</option>
+                                    <option value="Store Enquiry">Store Enquiry</option>
+                                    <option value="Online Enquiry">Online Order Enqiry</option>
+                                    <option value="Feedback">Feedback</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please choose a reason.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-md-2">
+                            <div class="col-md-6 my-1">
+                                <label for="firstname" class="form-label">Firstname</label>
+                                <input type="text" class="form-control" id="firstname" name="firstname">
+                                <div class="invalid-feedback">
+                                    Please enter your first name.
+                                </div>
+                            </div>
+                            <div class="col-md-6 my-1">
+                                <label for="surname" class="form-label">Surname</label>
+                                <input type="text" class="form-control" id="surname" name="surname">
+                                <div class="invalid-feedback">
+                                    Please enter your surname.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-md-2">
+                            <!--email input, requires '__@__'-->
+                            <div class="col-md-6 my-1">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address.
+                                </div>
+                            </div>
+                            <!--mobile input. Has to have 10 digits-->
+                            <div class="col-md-6 my-1">
+                                <label for="mobile" class="form-label">Mobile</label>
+                                <!--maxlength of 10 characters, pattern argument ensures that input has to be 10 digits-->
+                                <input type="tel" class="form-control" id="mobile" maxlenth="10" name="mobile">
+                                <div class="invalid-feedback">
+                                    Please enter a valid number.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-md-2">
+                            <div class="col-md-4 my-1">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" placeholder="123 Somewhere St" name="address">
+                                <div class="invalid-feedback">
+                                    Please enter your address.
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-1">
+                                <label for="state" class="form-label">State</label>
+                                <!--creates select input with bootstrap styling-->
+                                <select class="form-select" name="state" id="state">
+                                    <option value="" selected>Choose...</option> <!--placeholder text-->
+                                    <option value="ACT">ACT</option> <!--options for select drop down menue-->
+                                    <option value="NSW">NSW</option>
+                                    <option value="QLD">QLD</option>
+                                    <option value="SA">SA</option>
+                                    <option value="TAS">TAS</option>
+                                    <option value="VIC">VIC</option>
+                                    <option value="WA">WA</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please choose a state.
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-1">
+                                <label for="postcode" class="form-label">Postcode</label>
+                                <input type="text" class="form-control" id="postcode" name="postcode">
+                                <div class="invalid-feedback">
+                                    Please enter a valid postcode.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-md-2">
+                            <div class="col-12 my-1">
+                                <label for="customerMessage" class="form-label">Leave us a message</label>
+                                <textarea class="form-control" id="customerMessage" name="message" rows="4"
+                                    placeholder="Message..."></textarea>
+                                <div class="invalid-feedback">
+                                    Please enter a message.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-md-2">
+                            <div class="col-12 my-1">
+                                <!--form check. Have to agree to submit-->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="privacyPolicy">
+                                    <label class="form-check-label" for="privacyPolicy">
+                                        I agree to our <a href="#" data-bs-toggle="offcanvas"
+                                            data-bs-target="#privacyPolicyOffcanvas">Privacy Policy</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--creates a grid, sets relative size that changes depending of screensize, sets spacing, centers items-->
+                        <div class="d-grid gap-3 col-8 my-4 mx-auto">
+                            <!--submit and reset buttons for form-->
+                            <button type="Submit" class="btn text-white"
+                                id="submitButton"><strong>Submit</strong></button>
+                            <button type="Reset" class="btn text-white"><strong>Reset</strong></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <!--div with contact information. Underneath on most screens, side-by-side on larger screens-->
+            <div class="col-xl-6 col-12 p-3">
+                <div class="contact my-4 mx-4 p-5 shadow rounded">
+                    <h4><strong>Looking to contact us?</strong></h4>
+                    <br>
+                    <P>For customers enquiries, please fill out the Customer Query Form</P>
+                    <P>Still need to contact us? We're available!</P>
+                    <br>
+                    <h5><strong>Have a chat</strong></h5>
+                    <p><strong>Email us:</strong> service.cozylight@anemail.com</p>
+                    <br>
+                    <h5><strong>Give us a call</strong></h5>
+                    <p>Call our customer service team</p>
+                    <p>Mondy - Friday 9am - 4pm</p>
+                    <p>Number: 0123 456 789</p>
+                    <br>
+                    <h5><strong>Visit Us</strong></h5>
+                    <p>Come speak with our friendly staff at any of our locations</p>
+                    <p><strong>Open:</strong> Mondy - Saturday, 9am - 5pm</p>
+                    <p>Number: 0123 456 789</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--offcanvas element containing privacy policy-->
+    <div class="offcanvas offcanvas-end policy-offcanvas" tabindex="-1" id="privacyPolicyOffcanvas" aria-labelledby="privacyPolicyLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-header" id="privacyPolicyLabel">CozyLight Privacy Policy</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <h1 class="mb-4">Privacy Policy</h1>
+            <p><strong>Effective Date:</strong> May 1, 2025</p>
+            <p>At <strong>CozyLight Books</strong>, your privacy is important to us. This Privacy Policy outlines how we
+                collect,
+                use, disclose, and protect your information when you visit our website</p>
+
+            <hr>
+
+            <h3>1. Information We Collect</h3>
+            <ul>
+                <li><strong>Personal Information:</strong> Name, email address, billing and shipping address, and
+                    payment details when you place an order.</li>
+                <li><strong>Account Information:</strong> Login credentials if you create an account with us.</li>
+                <li><strong>Usage Data:</strong> Pages visited, time spent on site, device type, and browser data,
+                    collected through cookies and analytics tools.</li>
+            </ul>
+
+            <h3>2. How We Use Your Information</h3>
+            <ul>
+                <li>Process and fulfill orders.</li>
+                <li>Send you order updates and promotional content (only if you opt-in).</li>
+                <li>Improve our website, products, and user experience.</li>
+                <li>Prevent fraud and ensure security.</li>
+            </ul>
+
+            <h3>3. Sharing Your Information</h3>
+            <p>We <strong>do not sell</strong> your information. We may share your data with:</p>
+            <ul>
+                <li><strong>Trusted third parties</strong> such as payment processors and shipping partners, strictly
+                    for order fulfillment.</li>
+                <li><strong>Legal authorities</strong>, if required by law.</li>
+            </ul>
+
+            <h3>4. Cookies and Tracking</h3>
+            <p>We use cookies to remember your preferences, enhance your experience, and analyze website traffic. You
+                can
+                adjust cookie settings in your browser at any time.</p>
+
+            <h3>5. Your Rights</h3>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access or correct your personal data.</li>
+                <li>Request deletion of your information.</li>
+                <li>Opt out of marketing communications at any time.</li>
+            </ul>
+
+            <h3>6. Data Security</h3>
+            <p>We implement industry-standard security measures to protect your data. While no online system is 100%
+                secure, we
+                do our best to safeguard your information.</p>
+
+            <h3>7. Children's Privacy</h3>
+            <p>Our site is not intended for children under 13. We do not knowingly collect data from anyone under this
+                age.</p>
+
+            <h3>8. Changes to This Policy</h3>
+            <p>We may update this Privacy Policy occasionally. If we make material changes, we will post a notice on our
+                site.</p>
+
+            <h3>9. Contact Us</h3>
+            <p>If you have any questions about this policy, please contact us at:</p>
+            <ul>
+                <li>Email: <a href="mailto:service.cozylight@anemail.com">service.cozylight@anemail.com</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--universal footer used throughout the website-->
+    <footer class="mt-5">
+        <div class="container py-4">
+            <div class="row gx-5 gy-4">
+                <!--discover links-->
+                <div class="col-3 ps-5">
+                    <p class="h5"><strong>Discover</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="/" class="footerLink">Home</a>
+                        <a href="/books" class="footerLink">Books</a>
+                        <a href="/bestSeller" class="footerLink">Best Sellers</a>
+                        <a href="news.html" class="footerLink">News</a>
+                    </div>
+                </div>
+                <!--about links-->
+                <div class="col-3 ps-3">
+                    <p class="h5"><strong>About CozyLight</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="aboutUs.html" class="footerLink">About Us</a>
+                        <a href="contactUs.html" class="footerLink">Contact Us</a>
+                        <a href="support.html" class="footerLink">Support</a>
+                    </div>
+                </div>
+                <!--contact-->
+                <div class="col-3 ps-3">
+                    <p class="h5"><strong>Contact Us</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <p><strong>Email:</strong> service.cozylight@anemail.com</p>
+                    </div>
+                </div>
+                <!--opening hours-->
+                <div class="col-3 ps-2">
+                    <p class="h5"><strong>Opening Hours</strong></p>
+                    <table id="tableHours" class="table text-center text-white w-75">
+                        <tbody class="font-weight-normal">
+                            <tr>
+                                <td>Mon - Thu:</td>
+                                <td>8am - 9pm</td>
+                            </tr>
+                            <tr>
+                                <td>Fri - Sat:</td>
+                                <td>8am - 1am</td>
+                            </tr>
+                            <tr>
+                                <td>Sunday:</td>
+                                <td>9am - 10pm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--copyright-->
+        <div class="copyright py-2 text-center">
+            <p>@Copyright 2025 CozyLight Books | Last Updated 1/05/2025</p>
+        </div>
+    </footer>
+
+    <script src="formValidation.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

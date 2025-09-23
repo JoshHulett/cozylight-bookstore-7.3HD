@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/stylesheet.css">
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!--googlefonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+        rel="stylesheet">
+    <title>Cozylight Books</title>
+</head>
+
+<body>
+    <header>
+        <!--navbar with collapsable elements-->
+        <nav class="navbar navbar-expand-md">
+            <div class="container-fluid px-sm-3 px-md-3 px-lg-4 flex-column gap-1">
+                <div class="d-flex w-100 py-2 justify-content-between align-items-end">
+                    <!--brand/logo-->
+                    <div class="pe-3">
+                        <a class="navbar-brand" href="/">
+                            <img src="/images/logo1.png" alt="CozyLight Books" class="img-fluid"
+                                style="max-width: 350px;">
+                        </a>
+                    </div>
+
+                    <!--search bar-->
+                    <div class="px-2">
+                        <form action="/search" method="post" class="d-flex" role="search">
+                            <div class="input-group pb-3">
+                                <input class="form-control" type="search" id="navsearch" name="search"
+                                    placeholder="Search products" aria-label="Search"
+                                    style="height: 50px; font-size: 18px">
+                                <button class="btn h-100" type="submit" style="height: 50px; font-size: 18px;">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--collapsable icon-->
+                    <button class="navbar-toggler align-self-end mb-3 mx-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false"
+                        aria-label="Toggle Navigation" style="height: 50px">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <!--collapsable nav items, shown on new row on non-sm screens, collapsed on small screens-->
+                <div class="nav-divider mx-auto w-100 my-1"></div>
+                <div class="collapse navbar-collapse w-100" id="navbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-white" href="/books">
+                                <strong>Books</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/bestseller">
+                                <strong>Best Sellers</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/news.html">
+                                <strong>News</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/aboutUs.html">
+                                <strong>About Us</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/contactUs.html">
+                                <strong>Contact Us</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/support.html">
+                                <strong>Support</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/writereview">
+                                <strong>Reviews</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--Notification for wishlist-->
+    <div id="wishlist-notification" class="wishlist-notification hidden"></div>
+
+    <!--banner with background image and captions, along with an overlaying searchbar-->
+    <div class="productBackground w-100">
+        <div class="d-flex flex-column justify-content-center align-items-center py-5">
+            <h2 class="display-5 pt-5 text-white"><strong>What's Next?</strong></h2>
+            <br>
+            <!--promient searchbar to highlight main page function-->
+            <form action="/search" method="post" class="d-flex" role="search">
+                <div class="input-group w-100 pb-3">
+                    <input class="form-control" type="search" id="search" name="search"
+                        placeholder="Search products, genres" aria-label="Search" style="height: 50px; font-size: 20px">
+                    <button class="btn h-100" type="submit" style="height: 50px; font-size: 20px;">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- banner div with introduction text -->
+    <div class="overlay p-5 w-100 shadow">
+        <h2 class="display-6"><strong>Found your next obsession?</strong></h2>
+        <p class="lead">
+            <strong>Discover more about this title! Uncover the story, meet the characters, and see what makes this book
+                worth your shelf space.</strong>
+        </p>
+    </div>
+
+    <!--full product display. Includes image, text, radio-check buttons for format, and price/purhcase window-->
+    <!--dynamically displays the information of the box the user clicked on through database interactions-->
+    <div class="body p-5 m-3 mb-5 rounded shadow-lg scroll-fade">
+        <div class="row">
+            <div class="col-md-4 col-12 py-3">
+                <!-- <img src="/images/<%= book.product_image %>" alt="Product Image" class="img-fluid shadow rounded"> -->
+                <div class="product-image-container">
+                    <img src="/images/<%= book.product_image %>" alt="Product Image" class="card-img-top img-fluid">
+                    <button class="wishlist-heart hover" data-id="<%= book.id %>">
+                        <img src="/images/heart_empty.png" alt="wishlist" class="wishlist-icon">
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-5 col-12 px-3 py-3">
+                <h3 class="display-6"><strong>
+                        <%= book.title %>
+                    </strong></h3>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="lead text-muted">
+                            <%= book.author %>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p class="lead text-muted">
+                            <%= book.genre %>
+                        </p>
+                    </div>
+                </div>
+                <p class="lead text-muted">
+                    <%= book.release_date %>
+                </p>
+                <p class="lead"><strong>Overview:</strong></p>
+                <p class="text-muted">
+                    <%= book.description %>
+                </p>
+                <p class="lead"><strong>Format:</strong></p>
+                <!--form check with radio items. Custom CSS formatting-->
+                <!--in future iterations, a format must be selected before 'Buy Now' button is operational-->
+                <form>
+                    <div class="form-check px-0">
+                        <input type="radio" class="btn-check" name="format" id="paperback"
+                            data-price="<%= book.price %>" autocomplete="off" checked>
+                        <label class="btn format px-3 mb-3 me-3" for="paperback">
+                            <p>Paperback</p>
+                            <p class="text-muted">$<%= book.price %>
+                            </p>
+                        </label>
+                        <input type="radio" class="btn-check" name="format" id="hardcover"
+                            data-price="<%= book.hardcover_price %>" autocomplete="off">
+                        <label class="btn format px-3 mb-3 me-3" for="hardcover">
+                            <p>Hardcover</p>
+                            <p class="text-muted">$<%= book.hardcover_price %>
+                            </p>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <!--div with price, shipping info, and buy now button-->
+            <!--in future interation, a shopping cart with checkout will be added and incorporated here-->
+            <div class="col-md-3 col-12 py-3">
+                <div class="buyNow p-3 m-0 shadow">
+                    <h4 class="display-6" id="priceDisplay">$___</h4>
+                    <br>
+                    <p>All products are shipped within 3 business days</p>
+                    <br>
+                    <div class="d-flex justify-content-center px-3 py-2">
+                        <button class="btn text-white rounded-pill px-4 py-2">
+                            <p class="h4">Buy Now</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body p-5 m-3 rounded shadow scroll-fade">
+        <h3><strong>Most recently viewed:</strong></h3>
+        <div class="row" id="recently-viewed-placeholder">
+
+        </div>
+    </div>
+
+    <!--universal footer used throughout the website-->
+    <!--universal footer used throughout the website-->
+    <footer class="mt-5">
+        <div class="container py-4">
+            <div class="row gx-5 gy-4">
+                <!--discover links-->
+                <div class="col-3 ps-5">
+                    <p class="h5"><strong>Discover</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="/" class="footerLink">Home</a>
+                        <a href="/books" class="footerLink">Books</a>
+                        <a href="/bestSeller" class="footerLink">Best Sellers</a>
+                        <a href="/news.html" class="footerLink">News</a>
+                    </div>
+                </div>
+                <!--about links-->
+                <div class="col-3 ps-3">
+                    <p class="h5"><strong>About CozyLight</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="/aboutUs.html" class="footerLink">About Us</a>
+                        <a href="/contactUs.html" class="footerLink">Contact Us</a>
+                        <a href="/support.html" class="footerLink">Support</a>
+                    </div>
+                </div>
+                <!--contact-->
+                <div class="col-3 ps-3">
+                    <p class="h5"><strong>Contact Us</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <p><strong>Email:</strong> service.cozylight@anemail.com</p>
+                    </div>
+                </div>
+                <!--opening hours-->
+                <div class="col-3 ps-2">
+                    <p class="h5"><strong>Opening Hours</strong></p>
+                    <table id="tableHours" class="table text-center text-white w-75">
+                        <tbody class="font-weight-normal">
+                            <tr>
+                                <td>Mon - Thu:</td>
+                                <td>8am - 9pm</td>
+                            </tr>
+                            <tr>
+                                <td>Fri - Sat:</td>
+                                <td>8am - 1am</td>
+                            </tr>
+                            <tr>
+                                <td>Sunday:</td>
+                                <td>9am - 10pm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--copyright-->
+        <div class="copyright py-2 text-center">
+            <p>@Copyright 2025 CozyLight Books | Last Updated 1/05/2025</p>
+        </div>
+    </footer>
+
+    <script src="/product.js"></script>
+    <script src="/fadeScroll.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.bookID = "<%= book.id %>";
+            console.log("Book ID on page:", window.bookID);
+            saveViewedBook(window.bookID);
+        });
+    </script>
+    <script src="/js/recentlyViewed.js"></script>
+    <script src="/js/wishlist.js"></script>
+    <script src="/hover.js"></script>
+
+    <!--bootstrap javascript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

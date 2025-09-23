@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="stylesheet.css">
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!--googlefont-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+        rel="stylesheet">
+    <title>Cozylight Books</title>
+</head>
+
+<body>
+    <header>
+        <!--navbar with collapsable elements-->
+        <nav class="navbar navbar-expand-md">
+            <div class="container-fluid px-sm-3 px-md-3 px-lg-4 flex-column gap-1">
+                <div class="d-flex w-100 py-2 justify-content-between align-items-end">
+                    <!--brand/logo-->
+                    <div class="pe-3">
+                        <a class="navbar-brand" href="/">
+                            <img src="images/logo1.png" alt="CozyLight Books" class="img-fluid"
+                                style="max-width: 350px;">
+                        </a>
+                    </div>
+
+                    <!--search bar-->
+                    <div class="px-2">
+                        <form action="/search" method="post" class="d-flex" role="search">
+                            <div class="input-group pb-3">
+                                <input class="form-control" type="search" id="navsearch" name="search" placeholder="Search products"
+                                    aria-label="Search" style="height: 50px; font-size: 18px">
+                                <button class="btn h-100" type="submit" style="height: 50px; font-size: 18px;">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--collapsable icon-->
+                    <button class="navbar-toggler align-self-end mb-3 mx-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false"
+                        aria-label="Toggle Navigation" style="height: 50px">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <!--collapsable nav items, shown on new row on non-sm screens, collapsed on small screens-->
+                <div class="nav-divider mx-auto w-100 my-1"></div>
+                <div class="collapse navbar-collapse w-100" id="navbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-white" href="/books">
+                                <strong>Books</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/bestseller">
+                                <strong>Best Sellers</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="news.html">
+                                <strong>News</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="aboutUs.html">
+                                <strong>About Us</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="contactUs.html">
+                                <strong>Contact Us</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="support.html">
+                                <strong>Support</strong>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link text-nowrap text-white" href="/writereview">
+                                <strong>Reviews</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--image banner with div overlayed on top-->
+    <div class="position-relative w-100">
+        <img src="images/aboutMain.jpg" alt="Bookshelf with Ladder" class="img-fluid shadow">
+        <!--div overlayed on top of image-->
+        <div class="overlay position-absolute top-50 start-0 m-5 text-white p-4 pb-2 rounded d-md-block d-sm-none">
+            <h3><strong>Our Story</strong></h3>
+            <p class="lead">Discover the story behind CozyLight</p>
+        </div>
+    </div>
+
+    <!--section of divs that each contain an image and text about CozyLight, each section highlighting a different aspect of the business-->
+    <div class="p-4">
+        <!--segmented, hover effect, responsive for small screens-->
+        <div class="segment px-4 py-5 my-3 shadow rounded scroll-fade">
+            <div class="row">
+                <div class="col-md-4 col-12">
+                    <img src="images/Placeholder1.jpg" alt="Place Holder" class="img-fluid rounded">
+                </div>
+                <div class="col-md-8 col-12 pt-sm-3">
+                    <h3 class="h2">Our First Chapter</h3>
+                    <p class="lead">
+                        CozyLight began as a corner bookstore tucked away on a quiet street, founded by two lifelong
+                        friends who shared a passion for stories that bring people together. What started with a small
+                        shelf of handpicked paperbacks soon blossomed into a welcoming space where readers of all ages
+                        could slow down, sip tea, and share their love of books.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="segment my-5 px-4 py-5 shadow rounded scroll-fade">
+            <div class="row">
+                <div class="col-md-6 col-12 pb-sm-3">
+                    <h3 class="h2">Our Mission Statement</h3>
+                    <p class="lead">
+                        We believe stories have the power to comfort, connect, and inspire. CozyLight is dedicated to
+                        curating a cozy, inclusive literary experience—online and in-store—where every reader can find a
+                        little light in the pages they turn.
+                    </p>
+                </div>
+                <div class="col-md-6 col-12">
+                    <img src="images/About Us 1.jpg" alt="Our Mission Statement" class="img-fluid rounded-pill">
+                </div>
+            </div>
+        </div>
+
+        <div class="segment my-5 px-4 py-5 shadow rounded scroll-fade">
+            <div class="row">
+                <div class="col-12 pb-3">
+                    <img src="images/About Us 2.jpg" alt="Our Values" class="img-fluid rounded">
+                </div>
+                <div class="col-12">
+                    <h3 class="h2">Our Values</h3>
+                    <p class="lead">
+                        At CozyLight, we value warmth, inclusivity, creativity, and authenticity. We support small
+                        authors, celebrate diverse voices, and believe bookstores should feel like home. Every title we
+                        carry and every event we host is chosen with heart.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="segment m5-4 px-4 py-5 mt-4 shadow rounded scroll-fade">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <img src="images/About Us 3.jpg" alt="Our Community" class="img-fluid rounded">
+                </div>
+                <div class="col-sm-6 col-12 pt-sm-3">
+                    <h3 class="h2">Our Community</h3>
+                    <p class="lead">
+                        The heart of CozyLight isn't just the books—it's the people. From our book club regulars and
+                        local writers to first-time visitors, we've grown a vibrant community that thrives on kindness
+                        and shared curiosity. Together, we've created more than a shop; we've built a story-loving
+                        family.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="segment my-5 px-4 py-5 shadow rounded scroll-fade">
+            <div class="row">
+                <div class="col-md-8 col-12 pb-sm-3">
+                    <h3 class="h2">A Plot Twist</h3>
+                    <p class="lead">
+                        Like any good story, ours had a twist: when the pandemic changed the world, we had to close our
+                        physical doors. But rather than fade, we adapted—launching our online store, virtual events, and
+                        blog. What could've been the end of our story became a new beginning.
+                    </p>
+                </div>
+                <div class="col-md-4 col-12">
+                    <img src="images/About Us 4.jpg" alt="Plot Twist" class="img-fluid rounded-pill">
+                </div>
+            </div>
+        </div>
+
+        <div class="segment mt-5 px-4 py-5 shadow rounded scroll-fade">
+            <div class="row">
+                <div class="col-12 pb-3">
+                    <img src="images/aboutMain.jpg" alt="Place Holder 2" class="img-fluid rounded">
+                </div>
+                <div class="col-12">
+                    <h3 class="h2">The Next Chapter</h3>
+                    <p class="lead">
+                        Today, CozyLight continues to grow with new titles, heartfelt events, and an expanding digital
+                        presence. We're working on launching exclusive CozyLight editions, expanding our blog features,
+                        and opening a new flagship location. The story isn't over—it's just getting to the good part.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--universal footer used throughout the website-->
+    <footer class="mt-5">
+        <div class="container py-4">
+            <div class="row gx-5 gy-4">
+                <!--discover links-->
+                <div class="col-3 ps-5">
+                    <p class="h5"><strong>Discover</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="/" class="footerLink">Home</a>
+                        <a href="/books" class="footerLink">Books</a>
+                        <a href="/bestSeller" class="footerLink">Best Sellers</a>
+                        <a href="news.html" class="footerLink">News</a>
+                    </div>
+                </div>
+                <!--about links-->
+                <div class="col-3 ps-3">
+                    <p class="h5"><strong>About CozyLight</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="aboutUs.html" class="footerLink">About Us</a>
+                        <a href="contactUs.html" class="footerLink">Contact Us</a>
+                        <a href="support.html" class="footerLink">Support</a>
+                    </div>
+                </div>
+                <!--contact-->
+                <div class="col-3 ps-3">
+                    <p class="h5"><strong>Contact Us</strong></p>
+                    <div class="d-flex flex-column gap-2">
+                        <p><strong>Email:</strong> service.cozylight@anemail.com</p>
+                    </div>
+                </div>
+                <!--opening hours-->
+                <div class="col-3 ps-2">
+                    <p class="h5"><strong>Opening Hours</strong></p>
+                    <table id="tableHours" class="table text-center text-white w-75">
+                        <tbody class="font-weight-normal">
+                            <tr>
+                                <td>Mon - Thu:</td>
+                                <td>8am - 9pm</td>
+                            </tr>
+                            <tr>
+                                <td>Fri - Sat:</td>
+                                <td>8am - 1am</td>
+                            </tr>
+                            <tr>
+                                <td>Sunday:</td>
+                                <td>9am - 10pm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--copyright-->
+        <div class="copyright py-2 text-center">
+            <p>@Copyright 2025 CozyLight Books | Last Updated 1/05/2025</p>
+        </div>
+    </footer>
+
+    <script src="fadeScroll.js"></script>
+
+    <!--boostrap javascript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

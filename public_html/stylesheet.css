@@ -1,0 +1,247 @@
+nav {
+    background-color: rgb(157, 192, 139);
+    font-family: 'Merriweather', serif;
+}
+
+.btn {
+    background-color: rgb(223, 109, 20) !important;
+}
+
+.nav-item {
+    font-size: 22px;
+}
+
+.navbar-toggler {
+    background-color: rgb(223, 109, 20) !important;
+}
+
+.nav-link:hover {
+    color: rgb(223, 109, 20) !important;
+}
+
+.nav-divider {
+    width: 200px;
+    height: 2px;
+    background-color: rgb(223, 109, 20);
+    opacity: 0.8;
+}
+
+body {
+    font-family: 'Merriweather', serif !important;
+}
+
+.body {
+    background-color: rgb(248, 245, 233)
+}
+
+.contact {
+    background-color: rgb(198, 219, 188)
+}
+
+a {
+    color: rgb(223, 109, 20) !important;
+}
+
+.accordion-button {
+    background-color: white !important;
+}
+
+.accordion-button:focus,
+.accordion-button:hover {
+    background-color: rgb(253, 187, 130) !important;
+    box-shadow: none !important;
+}
+
+.accordion-item {
+    background-color: transparent !important;
+}
+
+.accordion-body {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.overlay {
+    background-color: rgb(253, 187, 130) !important;
+}
+
+.latestEvents {
+    background-color: rgb(253, 187, 130) !important;
+    border-radius: 20px !important;
+}
+
+.latestUpcoming {
+    background-color: rgb(198, 219, 188);
+    border-radius: 20px !important;
+}
+
+.segment {
+    background-color: rgb(253, 187, 130);
+    border-radius: 50px !important;
+    transition: background-color 0.4s;
+}
+
+.segment:hover {
+    background-color: rgb(248, 171, 103);
+}
+
+.countdown {
+    background-color: rgb(223, 109, 20) !important;
+    color: white;
+}
+
+.upcomingReleases {
+    background-color: rgb(198, 219, 188)
+}
+
+.card {
+    border-radius: 15px !important;
+}
+
+.card-img-top {
+    border-top-right-radius: 15px !important;
+    border-top-left-radius: 15px !important;
+}
+
+.carousel-control-prev-icon.event,
+.carousel-control-next-icon.event {
+    background-color: rgb(223, 109, 20) !important;
+    border-radius: 50%;
+}
+
+#homeCarousel .carousel-control-prev-icon,
+#homeCarousel .carousel-control-next-icon {
+    background-color: none !important;
+}
+
+.carousel-indicators.event button {
+    background-color: rgb(223, 109, 20) !important;
+
+}
+
+.productBackground {
+    background-image: url(images/productsPlaceholder1.jpg);
+    background-size: contain;
+    background-position: center;
+}
+
+.policy-offcanvas {
+    width: 600px !important;
+    background-color: rgb(198, 219, 188) !important;
+}
+
+table {
+    font-size: 18px;
+    border-radius: 15px !important;
+    overflow: hidden;
+}
+
+th {
+    background-color: rgb(253, 187, 130) !important;
+}
+
+.btn.format {
+    background-color: rgb(198, 219, 188) !important;
+    border-radius: 15px !important;
+}
+
+.btn-check:checked+.btn.format {
+    background-color: rgb(165, 199, 149) !important;
+}
+
+.buyNow {
+    background-color: rgb(165, 199, 149) !important;
+    border-radius: 20px !important;
+}
+
+footer {
+    background-color: rgb(76, 136, 79);
+    color: white;
+}
+
+.copyright {
+    background-color: rgb(41, 118, 45) !important;
+}
+
+#tableHours {
+    --bs-table-bg: transparent !important;
+    --bs-table-color: white !important;
+    font-size: 14px !important;
+}
+
+.footerLink {
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 16px;
+}
+
+.scroll-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease-out;
+}
+
+.scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-image-container {
+    position: relative;
+}
+
+.wishlist-heart {
+    position: absolute;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    top: 0px;
+    right: 0px;
+    background: white;
+    border: none;
+    cursor: pointer;
+    padding: 10;
+    z-index: 2;
+}
+
+.wishlist-icon {
+    width: 44px;
+    height: 44px;
+}
+
+.wishlist-notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background-color: green;
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 32px;
+    opacity: 0;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    visibility: hidden;
+    z-index: 3;
+}
+
+.wishlist-notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.wishlist-notification.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.remove-wishlist {
+    position: absolute;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    top: 0px;
+    right: 0px;
+    background: white;
+    border: none;
+    cursor: pointer;
+    padding: 10;
+    z-index: 2;
+}
