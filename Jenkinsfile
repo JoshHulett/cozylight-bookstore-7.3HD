@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo 'Running unit and integration tests...'
                 sh 'docker-compose run --rm cozybookstore npm test'
-                junit '**/test-results/junit.xml'
+                junit '/test-results/junit.xml'
             }
         }
         stage('Code Analysis') {
