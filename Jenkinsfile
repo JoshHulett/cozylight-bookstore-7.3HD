@@ -40,7 +40,8 @@ pipeline {
                     unzip -o web-server.zip -d deploy_dir
                     cd deploy_dir
                     npm install --omit=dev
-                    nohup npm start > server.log 2>&1 &
+                    pm2 start index.js --name cozybookstore --watch
+                    pm2 save
                 '''
                 echo 'Application deployed and running on localhost:3000'
             }
