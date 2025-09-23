@@ -324,7 +324,11 @@ app.post("/drafts", (req, res) => {
 });
 
 // Tell our application to listen to requests at port 3000 on the localhost
-app.listen(3000, '0.0.0.0', () => {
-  console.log(`Web server running at: http://localhost:${port}`)
-  console.log(`Type Ctrl+C to shut down the web server`)
-})
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(3000, '0.0.0.0', () => {
+    console.log(`Web server running at: http://localhost:${port}`)
+    console.log(`Type Ctrl+C to shut down the web server`)
+  });
+}
+
+module.exports = app;
