@@ -3,6 +3,7 @@ pipeline {
 
     environment {
     SONAR_TOKEN = credentials('SONAR_TOKEN')
+    SNYK_API_TOKEN = credentials('SNYK_TOKEN')
   }
     
     stages {
@@ -41,12 +42,12 @@ pipeline {
             steps {
                 sh '''
                 echo 'Authenticating..'
-                snyk auth $SYNK_TOKEN
-                snyk monitor --all-projects
-                snyk container monitor myapp:latest
+                snyk config set api=${SNYK_API_TOKEN}
 
                 echo 'Scanning Node.js dependencies...'
                 snyk test || true
+
+                snyk monitor --all-projects || true
 
                 echo 'Scanning Docker image...'
                 snyk container test myapp:latest || true
