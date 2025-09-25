@@ -88,6 +88,16 @@ pipeline {
         stage('Monitoring and Alerting') {
             steps {
                 echo "Deploy app to production."
+                script {
+                    def url = "http://cozylightbooks.ap-southeast-2.elasticbeanstalk.com"
+                    sh """
+                    STATUS=\$(curl -s -o /dev/null -w "%{http_code}" $url)
+                    if [ "\$STATUS" -ne 200 ]; then
+                        echo "App returned HTTP \$STATUS"
+                        exit 1
+                    fi
+                """
+                }
             }
         }
     }
