@@ -40,9 +40,6 @@ pipeline {
         stage('Security Scan') {
             steps {
                 sh '''
-                echo 'Installing Synk...'
-                npm install -g synk
-
                 echo 'Authenticating..'
                 synk auth $SYNK_TOKEN
 
