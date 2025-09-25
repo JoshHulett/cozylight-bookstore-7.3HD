@@ -39,7 +39,19 @@ pipeline {
         }
         stage('Security Scan') {
             steps {
-                echo 'Scan for vulnerabilites.'
+                sh '''
+                echo 'Installing Synk...'
+                npm install -g synk
+
+                echo 'Authenticating..'
+                synk auth $SYNK_TOKEN
+
+                echo 'Scanning Node.js dependencies...'
+                synk test || true
+
+                echo 'Scanning Docker image...'
+                synk container test myapp:latest || true
+                '''
             }
         }
         stage('Deploy') {
