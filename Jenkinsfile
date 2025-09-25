@@ -41,13 +41,15 @@ pipeline {
             steps {
                 sh '''
                 echo 'Authenticating..'
-                synk auth $SYNK_TOKEN
+                snyk auth $SYNK_TOKEN
+                snyk monitor --all-projects
+                snyk container monitor myapp:latest
 
                 echo 'Scanning Node.js dependencies...'
-                synk test || true
+                snyk test || true
 
                 echo 'Scanning Docker image...'
-                synk container test myapp:latest || true
+                snyk container test myapp:latest || true
                 '''
             }
         }
