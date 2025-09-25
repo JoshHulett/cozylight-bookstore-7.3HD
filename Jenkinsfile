@@ -6,8 +6,8 @@ pipeline {
     SNYK_API_TOKEN = credentials('SNYK_TOKEN')
     AWS_DEFAULT_REGION = "ap-southeast-2"
     AWS_CREDENTIALS = credentials('Jenkins-With-Beanstalk-Credentials')
-    APP_NAME = "cozybookstore-app"
-    ENV_NAME = "Cozybookstore-prod"
+    APP_NAME = "CozylightBookStore"
+    ENV_NAME = "CozylightBookStore-prod"
   }
     
     stages {
