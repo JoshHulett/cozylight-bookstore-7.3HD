@@ -4,6 +4,10 @@ pipeline {
     environment {
     SONAR_TOKEN = credentials('SONAR_TOKEN')
     SNYK_API_TOKEN = credentials('SNYK_TOKEN')
+    AWS_DEFAULT_REGION = "ap-southeast-2"
+    AWS_CREDENTIALS = credentials('Jenkins-With-Beanstalk-Credentials')
+    APP_NAME = "cozybookstore-app"
+    ENV_NAME = "Cozybookstore-prod"
   }
     
     stages {
@@ -63,7 +67,22 @@ pipeline {
         }
         stage('Release') {
             steps {
-                echo "Deploy app to production."
+                withAWS(credentials: 'Jenkins-With-Beanstalk-Credentials', region: "${AWS_DEFAULT_REGION}") {
+                    sh '''
+                    zip -r deploy.zip . -x "*.git*" "node_modules/*" "docker/*" "*.zip"
+
+                    aws s3 cp deploy.zip s3://elasticbeanstalk-ap-southeast-2-901792596992/app-${BUILD_NUMBER}.zip
+                    
+                    aws elasticbeanstalk create-application-version \
+                        --application-name ${APP_NAME} \
+                        --version-label build-${BUILD_NUMBER} \
+                        --source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-901792596992,S3Key=app-${BUILD_NUMBER}.zip
+
+                    aws elasticbeanstalk update-environment \
+                        --environment-name ${ENV_NAME} \
+                        --version-label build-${BUILD_NUMBER}
+                    '''
+                }
             }
         }
         stage('Monitoring and Alerting') {
