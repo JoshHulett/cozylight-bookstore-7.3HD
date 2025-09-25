@@ -69,7 +69,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'Jenkins-With-Beanstalk-Credentials', region: "${AWS_DEFAULT_REGION}") {
                     sh '''
-                    zip -r deploy.zip . -x "*.git*" "node_modules/*" "docker/*" "*.zip"
+                    zip -r deploy.zip . -x "*.git*" "node_modules/*" "docker/*" "*.zip" "*.tar.gz" "sonar-scanner*"
 
                     aws s3 cp deploy.zip s3://elasticbeanstalk-ap-southeast-2-901792596992/app-${BUILD_NUMBER}.zip
                     
