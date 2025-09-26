@@ -24,7 +24,7 @@ pipeline {
             post {
                 success {
                     echo 'Saving Docker image as an artefact with version: ${env.BUILD_VERSION}...'
-                    sh "docker save cozylightbookstore-cozybookstore${env.BUILD_VERSION} | gzip > cozybookstore-image.tar.gz"
+                    sh "docker save cozylightbookstore-cozybookstore:${env.BUILD_VERSION} | gzip > cozybookstore-image-${env.BUILD_VERSION}.tar.gz"
                     archiveArtifacts artifacts: "cozybookstore-image-${env.BUILD_VERSION}.tar.gz", fingerprint: true
                     echo "Docker image saved and archived with version ${env.BUILD_VERSION}"
                 }
