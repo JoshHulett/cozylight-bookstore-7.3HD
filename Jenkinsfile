@@ -87,16 +87,18 @@ pipeline {
         }
         stage('Monitoring and Alerting') {
             steps {
-                echo "Deploy app to production."
+                echo 'Checking deployed application health...'
                 script {
-                    def url = "http://cozylightbooks.ap-southeast-2.elasticbeanstalk.com"
-                    sh """
-                    STATUS=\$(curl -s -o /dev/null -w "%{http_code}" $url)
-                    if [ "\$STATUS" -ne 200 ]; then
-                        echo "App returned HTTP \$STATUS"
-                        exit 1
-                    fi
-                """
+                    def health = sh(script: "aws elasticbeanstalk describe-environments --environment-names $ENV_NAME --query 'Environments[0].Health' --output text", returnStdout: true).trim()
+                    echo 'Environment Health: ${health}'
+
+                    def statusCode = sh(script: "curl -o /dev/null -s -w '%{http_code}\\n' http://cozylightbooks.ap-southeast-2.elasticbeanstalk.com/", returnStdout: true).trim()
+                    echo 'Application HTTP Status: ${statusCode}'
+
+                    if (statusCode != '200') {
+                        error("Application failed the health check")
+                    }
+                    echo 'Deployed application is healthy. Ongoing monitoring is being performed through AWS CloudWatch'
                 }
             }
         }
