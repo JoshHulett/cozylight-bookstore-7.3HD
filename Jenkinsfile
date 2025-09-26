@@ -19,6 +19,7 @@ pipeline {
                     echo "Building Docker image with dependencies and version: ${version}..."
                     sh 'docker-compose build --no-cache'
                     sh "docker tag cozylightbookstore-cozybookstore:latest cozylightbookstore-cozybookstore:${version}"
+                }
             }
             post {
                 success {
