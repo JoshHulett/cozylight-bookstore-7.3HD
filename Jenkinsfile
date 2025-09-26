@@ -90,10 +90,10 @@ pipeline {
                 echo 'Checking deployed application health...'
                 script {
                     def health = sh(script: "aws elasticbeanstalk describe-environments --environment-names $ENV_NAME --query 'Environments[0].Health' --output text", returnStdout: true).trim()
-                    echo 'Environment Health: ${health}'
+                    echo "Environment Health: ${health}"
 
                     def statusCode = sh(script: "curl -o /dev/null -s -w '%{http_code}\\n' http://cozylightbooks.ap-southeast-2.elasticbeanstalk.com/", returnStdout: true).trim()
-                    echo 'Application HTTP Status: ${statusCode}'
+                    echo "Application HTTP Status: ${statusCode}"
 
                     if (statusCode != '200') {
                         error("Application failed the health check")
