@@ -13,15 +13,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building Docker image with dependencies...'
-                sh 'docker-compose build --no-cache'
+                script {
+                    def version = "v1.${BUILD_NUMBER}"
+                    env.BUILD_VERSION = version
+                    echo "Building Docker image with dependencies and version: ${version}..."
+                    sh 'docker-compose build --no-cache'
+                    sh "docker tag cozylightbookstore-cozybookstore:latest cozylightbookstore-cozybookstore:${version}"
             }
             post {
                 success {
-                    echo 'Saving Docker image as an artefact...'
-                    sh 'docker save cozylightbookstore-cozybookstore | gzip > cozybookstore-image.tar.gz'
-                    archiveArtifacts artifacts: 'cozybookstore-image.tar.gz', fingerprint: true
-                    echo 'Docker image saved and archived.'
+                    echo 'Saving Docker image as an artefact with version: ${env.BUILD_VERSION}...'
+                    sh "docker save cozylightbookstore-cozybookstore${env.BUILD_VERSION} | gzip > cozybookstore-image.tar.gz"
+                    archiveArtifacts artifacts: "cozybookstore-image-${env.BUILD_VERSION}.tar.gz", fingerprint: true
+                    echo "Docker image saved and archived with version ${env.BUILD_VERSION}"
                 }
             }
         }
