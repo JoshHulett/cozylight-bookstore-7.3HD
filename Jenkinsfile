@@ -66,13 +66,13 @@ pipeline {
                         snyk config set api=${SNYK_API_TOKEN}
         
                         echo 'Scanning Node.js dependencies...'
-                        snyk test --severity-threshold=medium
+                        snyk test --severity-threshold=high
 
                         echo 'Creating monitor snapshot...'
                         snyk monitor --all-projects
         
                         echo 'Scanning project Docker image...'
-                        snyk container test myapp:latest --severity-threshold=medium
+                        snyk container test myapp:latest --severity-threshold=high
                         '''
                     } catch (err) {
                         echo "Synk detected medium or higher vulnerabilities: ${err}"
