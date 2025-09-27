@@ -40,7 +40,6 @@ pipeline {
                 ls -R coverage || echo "No coverage folder found"
                 '''
                 junit 'test-results/junit.xml'
-                archiveArtifacts artifacts: 'coverage/lcov.info', fingerprint: true
             }
         }
         stage('Code Analysis') {
