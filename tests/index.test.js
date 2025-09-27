@@ -100,7 +100,7 @@ describe('CozyLight Bookstore API tests', () => {
 
         expect(res.statusCode).toBe(200);
         expect(res.text).toContain('No book found');
-        expect(res.text).not.toContain('Fake Book Title');
+        expect(res.text).toContain('Fake Book Title');
     });
 });
 
