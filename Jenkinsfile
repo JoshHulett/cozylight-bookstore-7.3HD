@@ -6,22 +6,27 @@ pipeline {
     SNYK_API_TOKEN = credentials('SNYK_TOKEN')
     AWS_DEFAULT_REGION = "ap-southeast-2"
     AWS_CREDENTIALS = credentials('Jenkins-With-Beanstalk-Credentials')
-    APP_NAME = "cozybookstore-app"
-    ENV_NAME = "Cozybookstore-prod"
+    APP_NAME = "CozylightBookStore"
+    ENV_NAME = "CozylightBookStore-prod"
   }
     
     stages {
         stage('Build') {
             steps {
-                echo 'Building Docker image with dependencies...'
-                sh 'docker-compose build --no-cache'
+                script {
+                    def version = "v1.${BUILD_NUMBER}"
+                    env.BUILD_VERSION = version
+                    echo "Building Docker image with dependencies and version: ${version}..."
+                    sh 'docker-compose build --no-cache'
+                    sh "docker tag cozylightbookstore-cozybookstore:latest cozylightbookstore-cozybookstore:${version}"
+                }
             }
             post {
                 success {
-                    echo 'Saving Docker image as an artefact...'
-                    sh 'docker save cozylightbookstore-cozybookstore | gzip > cozybookstore-image.tar.gz'
-                    archiveArtifacts artifacts: 'cozybookstore-image.tar.gz', fingerprint: true
-                    echo 'Docker image saved and archived.'
+                    echo 'Saving Docker image as an artefact with version: ${env.BUILD_VERSION}...'
+                    sh "docker save cozylightbookstore-cozybookstore:${env.BUILD_VERSION} | gzip > cozybookstore-image-${env.BUILD_VERSION}.tar.gz"
+                    archiveArtifacts artifacts: "cozybookstore-image-${env.BUILD_VERSION}.tar.gz", fingerprint: true
+                    echo "Docker image saved and archived with version ${env.BUILD_VERSION}"
                 }
             }
         }
@@ -87,7 +92,19 @@ pipeline {
         }
         stage('Monitoring and Alerting') {
             steps {
-                echo "Deploy app to production."
+                echo 'Checking deployed application health...'
+                script {
+                    def health = sh(script: "aws elasticbeanstalk describe-environments --environment-names $ENV_NAME --query 'Environments[0].Health' --output text", returnStdout: true).trim()
+                    echo "Environment Health: ${health}"
+
+                    def statusCode = sh(script: "curl -o /dev/null -s -w '%{http_code}\\n' http://cozylightbooks.ap-southeast-2.elasticbeanstalk.com/", returnStdout: true).trim()
+                    echo "Application HTTP Status: ${statusCode}"
+
+                    if (statusCode != '200') {
+                        error("Application failed the health check")
+                    }
+                    echo 'Deployed application is healthy. Ongoing monitoring is being performed through AWS CloudWatch'
+                }
             }
         }
     }
