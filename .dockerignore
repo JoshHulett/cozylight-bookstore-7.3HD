@@ -2,7 +2,7 @@ node_modules
 npm-debug.log
 .git
 .DS_Store
-*.tar.gz
+*tar.gz
 dist
 build
 coverage
