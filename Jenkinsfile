@@ -33,12 +33,9 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running unit and integration tests...'
-                sh 'docker-compose run --rm -w /app cozybookstore npm test -- --coverage'
-                sh '''
-                ls -R .
-                echo "Coverage folder content:"
-                ls -R coverage || echo "No coverage folder found"
-                '''
+                sh 'docker-compose run --name test_cozybookstore -w /app cozybookstore npm test -- --coverage'
+                sh 'docker cp test_cozybookstore:/app/coverage ./coverage'
+                sh 'docker rm test_cozybookstore'
                 junit 'test-results/junit.xml'
             }
         }
