@@ -71,6 +71,9 @@ pipeline {
         
                         echo 'Scanning source code...'
                         snyk code test --severity-threshold=high
+
+                        echo 'Scanning Docker image...'
+                        snyk container test cozylightbookstore-cozybookstore:${BUILD_VERSION} --exclude-base
                         '''
                     } catch (err) {
                         echo "Synk detected medium or higher vulnerabilities: ${err}"
@@ -79,9 +82,7 @@ pipeline {
                         sh '''
                         echo 'Creating monitor snapshot...'
                         snyk monitor --all-projects
-
-                        echo 'Creating monitor snapshot for source code...'
-                        snyk code monitor
+                        snyk container monitor cozylightbookstore-cozybookstore:${BUILD_VERSION} --exclude-base 
                         '''
                     }
 
