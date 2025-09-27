@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "test": "jest --ci --config=jest.config.js --runInBand --coverage"
+    "test": "jest --ci --coverage --config=jest.config.js"
   },
   "keywords": [
     "node",
