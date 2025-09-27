@@ -33,6 +33,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running unit and integration tests...'
+                sh 'docker rm -f test_cozybookstore || true'
                 sh 'docker-compose run --name test_cozybookstore -w /app cozybookstore npm test -- --coverage'
                 sh 'docker cp test_cozybookstore:/app/coverage ./coverage'
                 sh 'docker cp test_cozybookstore:/app/test-results/junit.xml ./test-results/junit.xml'
