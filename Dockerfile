@@ -2,9 +2,16 @@ FROM node:18
 WORKDIR /app
 RUN apt-get update && \
     apt-get install -y \
-        sqlite3 libsqlite3-dev \
-        libxml2 libxml2-dev \
-        imagemagick libmagickcore-dev libmagickwand-dev && \
+        sqlite3 \
+        libsqlite3-dev \
+        libxml2 \
+        libxml2-dev \
+        imagemagick \
+        libmagickcore-dev \
+        libmagickwand-dev \
+        libexpat1 \
+        libxslt1.1 \
+        libicu72 && \
     rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /app/test-results
 RUN mkdir -p /app/coverage
