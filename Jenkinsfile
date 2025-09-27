@@ -70,13 +70,13 @@ pipeline {
                         snyk test --severity-threshold=high
         
                         echo 'Scanning source code...'
-                        snyk code test --severity-threshold=high
+                        snyk code test
 
                         echo 'Scanning Docker image...'
                         snyk container test cozylightbookstore-cozybookstore:${BUILD_VERSION} --exclude-base
                         '''
                     } catch (err) {
-                        echo "Synk detected medium or higher vulnerabilities: ${err}"
+                        echo "Synk detected high or higher vulnerabilities: ${err}"
                         highVulnFound = true
                     } finally {
                         sh '''
