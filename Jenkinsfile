@@ -34,6 +34,11 @@ pipeline {
             steps {
                 echo 'Running unit and integration tests...'
                 sh 'docker-compose run --rm cozybookstore npm test -- --coverage'
+                sh '''
+                ls -R .
+                echo "Coverage folder content:"
+                ls -R coverage || echo "No coverage folder found"
+                '''
                 junit 'test-results/junit.xml'
                 archiveArtifacts artifacts: 'coverage/lcov.info', fingerprint: true
             }
