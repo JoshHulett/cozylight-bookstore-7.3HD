@@ -59,18 +59,26 @@ pipeline {
         }
         stage('Security Scan') {
             steps {
-                sh '''
-                echo 'Authenticating..'
-                snyk config set api=${SNYK_API_TOKEN}
+                script {
+                    try {
+                        sh '''
+                        echo 'Authenticating SNYK..'
+                        snyk config set api=${SNYK_API_TOKEN}
+        
+                        echo 'Scanning Node.js dependencies...'
+                        snyk test --severity-threshold=medium
 
-                echo 'Scanning Node.js dependencies...'
-                snyk test || true
-
-                snyk monitor --all-projects || true
-
-                echo 'Scanning Docker image...'
-                snyk container test myapp:latest || true
-                '''
+                        echo 'Creating monitor snapshot...'
+                        snyk monitor --all-projects
+        
+                        echo 'Scanning project Docker image...'
+                        snyk container test myapp:latest --severity-threshold=medium
+                        '''
+                    } catch (err) {
+                        echo "Synk detected medium or higher vulnerabilities: ${err}"
+                        error("Aborting build due to security vulnerabilities")
+                    }
+                }
             }
         }
         stage('Deploy') {
