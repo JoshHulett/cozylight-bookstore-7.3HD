@@ -72,7 +72,7 @@ pipeline {
                         snyk monitor --all-projects
         
                         echo 'Scanning project Docker image...'
-                        snyk container test myapp:latest --severity-threshold=high
+                        snyk container test cozylightbookstore-cozybookstore:${BUILD_VERSION} --severity-threshold=high
                         '''
                     } catch (err) {
                         echo "Synk detected medium or higher vulnerabilities: ${err}"
