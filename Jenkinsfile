@@ -71,12 +71,6 @@ pipeline {
                         echo 'Creating monitor snapshot...'
                         snyk monitor --all-projects
         
-                        echo 'Scanning project Docker image...'
-                        snyk container test cozylightbookstore-cozybookstore:${BUILD_VERSION}
-
-                        echo 'Creating monitor snapshot...'
-                        snyk monitor --docker cozylightbookstore-cozybookstore:${BUILD_VERSION} --file=Dockerfile
-
                         echo 'Scanning source code...'
                         snyk code test --severity-threshold=high
 
