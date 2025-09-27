@@ -112,7 +112,7 @@ describe('CozyLight Bookstore Database tests', () => {
 
     it('Enquiry insert should succeed with valid data', (done) => {
         enquiryDB.run(
-            `INSERT INTO ENQUIRY (reason, firstname, surname, email, mobile, address, state, postcode, message)
+            `INSERT INTO ENQUIRY (reason, firtname, surname, email, mobile, address, state, postcode, message)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             ['Question', 'Jane', 'Smith', 'jane@test.com', '0411111111', '456 Another St', 'VIC', '3001', 'Hello!'],
             function(err) {
@@ -128,7 +128,7 @@ describe('CozyLight Bookstore Database tests', () => {
 
     it('Enquiry insert should fail with missing required fields', (done) => {
         enquiryDB.run(
-            `INSERT INTO ENQUIRY (reason, firstname, email) VALUES (?, ?, ?)`,
+            `INSERT INTO ENQUIRY (reason, firtname, email) VALUES (?, ?, ?)`,
             ['Q', 'Bad', null],
             function(err) {
                 expect(err).not.toBeNull();
