@@ -60,6 +60,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 script {
+                    def highVulnFound = false
                     try {
                         sh '''
                         echo 'Authenticating SNYK..'
@@ -67,18 +68,24 @@ pipeline {
         
                         echo 'Scanning Node.js dependencies...'
                         snyk test --severity-threshold=high
-
-                        echo 'Creating monitor snapshot...'
-                        snyk monitor --all-projects
         
                         echo 'Scanning source code...'
                         snyk code test --severity-threshold=high
+                        '''
+                    } catch (err) {
+                        echo "Synk detected medium or higher vulnerabilities: ${err}"
+                        highVulnFound = true
+                    } finally {
+                        sh '''
+                        echo 'Creating monitor snapshot...'
+                        snyk monitor --all-projects
 
                         echo 'Creating monitor snapshot for source code...'
                         snyk code monitor
                         '''
-                    } catch (err) {
-                        echo "Synk detected medium or higher vulnerabilities: ${err}"
+                    }
+
+                    if (highVulnFound) {
                         error("Aborting build due to security vulnerabilities")
                     }
                 }
