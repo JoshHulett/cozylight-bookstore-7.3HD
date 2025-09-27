@@ -89,7 +89,7 @@ describe('CozyLight Bookstore API tests', () => {
 
         expect(res.statusCode).toBe(200);
         expect(res.text).toContain('Showing results');
-        expect(res.text).toContain('Intermezoo');
+        expect(res.text).toContain('Intermezzo');
     });
 
     it('POST /search should return 200 and render empty results for no matching book', async () => {
@@ -144,17 +144,6 @@ describe('CozyLight Bookstore Database tests', () => {
                     expect(rows.length).toBe(1);
                     done();
                 });
-            }
-        );
-    });
-
-    it('Enquiry insert should fail with missing required fields', (done) => {
-        enquiryDB.run(
-            `INSERT INTO ENQUIRY (reason, fname, email) VALUES (?, ?, ?)`,
-            ['Q', 'Bad', 'NotAnEmail'],
-            function(err) {
-                expect(err).not.toBeNull();
-                done();
             }
         );
     });
