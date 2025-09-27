@@ -42,12 +42,19 @@ pipeline {
         }
         stage('Code Analysis') {
             steps {
-                sh '''
-                curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.2.0.5079-linux-x64.zip
-                unzip -o sonar-scanner.zip
-                export PATH=$PWD/sonar-scanner-7.2.0.5079-linux-x64/bin:$PATH
-                sonar-scanner -Dsonar.login=$SONAR_TOKEN
-                '''
+                script {
+                    try {
+                        sh '''
+                        curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.2.0.5079-linux-x64.zip
+                        unzip -o sonar-scanner.zip
+                        export PATH=$PWD/sonar-scanner-7.2.0.5079-linux-x64/bin:$PATH
+                        sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.qualitygate.wait=true
+                        '''
+                    } catch (err) {
+                        echo "SonarCloud analysis failed or Quality Gate failed: ${err}"
+                        error("Aborting build due to Code Quality failures")
+                    }
+                }
             }
         }
         stage('Security Scan') {
