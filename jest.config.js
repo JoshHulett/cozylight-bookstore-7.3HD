@@ -3,7 +3,7 @@ module.exports = {
     verbose: true,
     collectCoverage: true,
     coverageReporters: ["lcov", "text"],
-    coverageDirectory: 'coverage',
+    coverageDirectory: '/app/coverage',
     reporters: [
         'default',
         ['jest-junit', {
