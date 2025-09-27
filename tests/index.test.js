@@ -1,6 +1,10 @@
 const request = require('supertest');
 const express = require('express');
 const app = require('../index');
+const sqlite3 = require('sqlite3').verbose();
+
+let booksDB;
+let enquiryDB;
 
 describe('CozyLight Bookstore API tests', () => {
 
@@ -77,3 +81,59 @@ describe('CozyLight Bookstore API tests', () => {
             expect(res.text).toContain('Please');
     });
 });
+
+beforeAll((done) => {
+    booksDB = new sqlite3.Database('./booksDB.db', sqlite3.OPEN_READWRITE, (err) => {
+        if (err) return done(err);
+        console.log('Connected to booksDB.db for testing');
+    });
+
+    enquiryDB = new sqlite3.Database('./enquiryDB.db', sqlite3.OPEN_READWRITE, (err) => {
+        if (err) return done(err);
+        console.log('Connected to enquiryDB.db for testing');
+        done();
+    });
+});
+
+afterAll((done) => {
+    booksDB.close();
+    enquiryDB.close();
+    done();
+});
+
+describe('CozyLight Bookstore Database tests', () => {
+    it('Books table should return at least one book', (done) => {
+        booksDB.all('SELECT * FROM BOOKS', [], (err, rows) => {
+            expect(err).toBeNull();
+            expect(rows.length).toBeGreaterThan(0);
+            done();
+        });
+    });
+
+    it('Enquiry insert should succeed with valid data', (done) => {
+        enquiryDB.run(
+            `INSERT INTO ENQUIRY (reason, firstname, surname, email, mobile, address, state, postcode, message)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            ['Question', 'Jane', 'Smith', 'jane@test.com', '0411111111', '456 Another St', 'VIC', '3001', 'Hello!'],
+            function(err) {
+                expect(err).toBeNull();
+                enquiryDB.all('SELECT * FROM ENQUIRY WHERE email = ?', ['jane@test.com'], (err, rows) => {
+                    expect(err).toBeNull();
+                    expect(rows.length).toBe(1);
+                    done();
+                });
+            }
+        );
+    });
+
+    it('Enquiry insert should fail with missing required fields', (done) => {
+        enquiryDB.run(
+            `INSERT INTO ENQUIRY (reason, firstname, email) VALUES (?, ?, ?)`,
+            ['Q', 'Bad', null],
+            function(err) {
+                expect(err).not.toBeNull();
+                done();
+            }
+        );
+    });
+})
