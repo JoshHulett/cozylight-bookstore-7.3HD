@@ -33,7 +33,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running unit and integration tests...'
-                sh 'docker-compose run --rm cozybookstore npm test -- --coverage'
+                sh 'docker-compose run --rm -w /app cozybookstore npm test -- --coverage'
                 sh '''
                 ls -R .
                 echo "Coverage folder content:"
