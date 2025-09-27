@@ -33,8 +33,9 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running unit and integration tests...'
-                sh 'docker-compose run --rm cozybookstore npm test'
+                sh 'docker-compose run --rm cozybookstore npm test -- --coverage'
                 junit 'test-results/junit.xml'
+                archiveArtifacts artifacts: 'coverage/lcov.info', fingerprint: true
             }
         }
         stage('Code Analysis') {
