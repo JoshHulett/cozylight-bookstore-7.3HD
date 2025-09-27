@@ -44,12 +44,14 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh '''
-                        curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.2.0.5079-linux-x64.zip
-                        unzip -o sonar-scanner.zip
-                        export PATH=$PWD/sonar-scanner-7.2.0.5079-linux-x64/bin:$PATH
-                        sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.qualitygate.wait=true
-                        '''
+                        retry(2) {
+                            sh '''
+                            curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.2.0.5079-linux-x64.zip
+                            unzip -o sonar-scanner.zip
+                            export PATH=$PWD/sonar-scanner-7.2.0.5079-linux-x64/bin:$PATH
+                            sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.qualitygate.wait=true
+                            '''
+                        }
                     } catch (err) {
                         echo "SonarCloud analysis failed or Quality Gate failed: ${err}"
                         error("Aborting build due to Code Quality failures")
@@ -62,13 +64,15 @@ pipeline {
                 script {
                     def highVulnFound = false
                     try {
-                        sh '''
-                        echo 'Authenticating SNYK..'
-                        snyk config set api=${SNYK_API_TOKEN}
-        
-                        echo 'Scanning Node.js dependencies...'
-                        snyk test --severity-threshold=high
-                        '''
+                        retry(2) {
+                            sh '''
+                            echo 'Authenticating SNYK..'
+                            snyk config set api=${SNYK_API_TOKEN}
+            
+                            echo 'Scanning Node.js dependencies...'
+                            snyk test --severity-threshold=high
+                            '''
+                        }
                     } catch (err) {
                         echo "Synk detected high or higher vulnerabilities: ${err}"
                         highVulnFound = true
@@ -102,20 +106,22 @@ pipeline {
         stage('Release') {
             steps {
                 withAWS(credentials: 'Jenkins-With-Beanstalk-Credentials', region: "${AWS_DEFAULT_REGION}") {
-                    sh '''
-                    zip -r deploy.zip . -x "*.git*" "node_modules/*" "docker/*" "*.zip" "*.tar.gz" "sonar-scanner*"
-
-                    aws s3 cp deploy.zip s3://elasticbeanstalk-ap-southeast-2-901792596992/app-${BUILD_NUMBER}.zip
-                    
-                    aws elasticbeanstalk create-application-version \
-                        --application-name ${APP_NAME} \
-                        --version-label build-${BUILD_NUMBER} \
-                        --source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-901792596992,S3Key=app-${BUILD_NUMBER}.zip
-
-                    aws elasticbeanstalk update-environment \
-                        --environment-name ${ENV_NAME} \
-                        --version-label build-${BUILD_NUMBER}
-                    '''
+                    retry(3) {
+                        sh '''
+                        zip -r deploy.zip . -x "*.git*" "node_modules/*" "docker/*" "*.zip" "*.tar.gz" "sonar-scanner*"
+    
+                        aws s3 cp deploy.zip s3://elasticbeanstalk-ap-southeast-2-901792596992/app-${BUILD_NUMBER}.zip
+                        
+                        aws elasticbeanstalk create-application-version \
+                            --application-name ${APP_NAME} \
+                            --version-label build-${BUILD_NUMBER} \
+                            --source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-901792596992,S3Key=app-${BUILD_NUMBER}.zip
+    
+                        aws elasticbeanstalk update-environment \
+                            --environment-name ${ENV_NAME} \
+                            --version-label build-${BUILD_NUMBER}
+                        '''
+                    }
                 }
             }
         }
@@ -123,14 +129,16 @@ pipeline {
             steps {
                 echo 'Checking deployed application health...'
                 script {
-                    def health = sh(script: "aws elasticbeanstalk describe-environments --environment-names $ENV_NAME --query 'Environments[0].Health' --output text", returnStdout: true).trim()
-                    echo "Environment Health: ${health}"
-
-                    def statusCode = sh(script: "curl -o /dev/null -s -w '%{http_code}\\n' http://cozylightbooks.ap-southeast-2.elasticbeanstalk.com/", returnStdout: true).trim()
-                    echo "Application HTTP Status: ${statusCode}"
-
-                    if (statusCode != '200') {
-                        error("Application failed the health check")
+                    retry(3) {
+                        def health = sh(script: "aws elasticbeanstalk describe-environments --environment-names $ENV_NAME --query 'Environments[0].Health' --output text", returnStdout: true).trim()
+                        echo "Environment Health: ${health}"
+    
+                        def statusCode = sh(script: "curl -o /dev/null -s -w '%{http_code}\\n' http://cozylightbooks.ap-southeast-2.elasticbeanstalk.com/", returnStdout: true).trim()
+                        echo "Application HTTP Status: ${statusCode}"
+    
+                        if (statusCode != '200') {
+                            error("Application failed the health check")
+                        }
                     }
                     echo 'Deployed application is healthy. Ongoing monitoring is being performed through AWS CloudWatch'
                 }
