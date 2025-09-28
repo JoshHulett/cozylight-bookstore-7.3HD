@@ -102,6 +102,65 @@ describe('CozyLight Bookstore API tests', () => {
         expect(res.text).toContain('No book found');
         expect(res.text).toContain('Fake Book Title');
     });
+
+    it('POST /recentlyviewed should return 400 when no IDs are provided', async () => {
+        const res = await request(app)
+            .post('/recentlyviewed')
+            .send({ ids: [] })
+            .set('Accept', 'application/json');
+
+        expect(res.statusCode).toBe(400);
+    });
+
+    it('POST /recentlyviewed should return 200 and books when valid IDs are provided', async () => {
+        const res = await request(app)
+            .post('/recentlyviewed')
+            .send({ ids: [1, 2] })   // assumes books with IDs 1 and 2 exist
+            .set('Accept', 'application/json');
+
+        expect(res.statusCode).toBe(200);
+        expect(Array.isArray(res.body)).toBe(true);
+        expect(res.body.length).toBeGreaterThan(0);
+    });
+
+    it('POST /wishlist should return 400 when no IDs are provided', async () => {
+        const res = await request(app)
+            .post('/wishlist')
+            .send({ ids: [] })
+            .set('Accept', 'application/json');
+
+        expect(res.statusCode).toBe(400);
+    });
+
+    it('POST /wishlist should return 200 and books when valid IDs are provided', async () => {
+        const res = await request(app)
+            .post('/wishlist')
+            .send({ ids: [1] })
+            .set('Accept', 'application/json');
+
+        expect(res.statusCode).toBe(200);
+        expect(Array.isArray(res.body)).toBe(true);
+    });
+
+    it('POST /drafts should return 400 when no IDs are provided', async () => {
+        const res = await request(app)
+            .post('/drafts')
+            .send({ ids: [] })
+            .set('Accept', 'application/json');
+
+        expect(res.statusCode).toBe(400);
+    });
+
+    it('POST /drafts should return 200 and books when valid IDs are provided', async () => {
+        const res = await request(app)
+            .post('/drafts')
+            .send({ ids: [1, 2] })
+            .set('Accept', 'application/json');
+
+        expect(res.statusCode).toBe(200);
+        expect(Array.isArray(res.body)).toBe(true);
+    });
+
 });
 
 beforeAll((done) => {
