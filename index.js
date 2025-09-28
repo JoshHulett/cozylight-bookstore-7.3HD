@@ -1,7 +1,6 @@
 // Require the express web application framework (https://expressjs.com)
 const express = require('express');
 const morgan = require('morgan');
-const rateLimit = require('express-rate-limit');
 // Create a new web application by calling the express function
 const app = express();
 app.disable('x-powered-by');
@@ -9,14 +8,6 @@ const port = 3000;
 
 // Connect to SQLite database
 const sqlite3 = require('sqlite3').verbose();
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: "Too many requests from this IP, please try again later"
-});
-
-app.use(limiter);
 
 // Connect to enquiry database
 let enquirydb = new sqlite3.Database('enquiryDB.db', (err) => {
