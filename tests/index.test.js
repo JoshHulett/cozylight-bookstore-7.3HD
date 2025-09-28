@@ -1,6 +1,6 @@
 const request = require('supertest');
 const express = require('express');
-const app = require('../index');
+const { app, enquirydb } = require('../index');
 const sqlite3 = require('sqlite3').verbose();
 
 let booksDB;
@@ -216,7 +216,7 @@ describe('POST /submitenquiry DB error handling', () => {
     });
 
     it('should handle DB insertion error gracefully', async () => {
-        runSpy = jest.spyOn(enquiryDB, 'run').mockImplementation((query, params, cb) => cb(new Error('Insertion failed')));
+        runSpy = jest.spyOn(enquirydb, 'run').mockImplementation((query, params, cb) => cb(new Error('Insertion failed')));
 
         const res = await request(app)
             .post('/submitenquiry')
@@ -237,8 +237,8 @@ describe('POST /submitenquiry DB error handling', () => {
     });
 
     it('should handle DB fetch error after insertion', async () => {
-        runSpy = jest.spyOn(enquiryDB, 'run').mockImplementation((query, params, cb) => cb(null));
-        allSpy = jest.spyOn(enquiryDB, 'all').mockImplementation((query, params, cb) => cb(new Error('Fetch failed')));
+        runSpy = jest.spyOn(enquirydb, 'run').mockImplementation((query, params, cb) => cb(null));
+        allSpy = jest.spyOn(enquirydb, 'all').mockImplementation((query, params, cb) => cb(new Error('Fetch failed')));
 
         const res = await request(app)
             .post('/submitenquiry')
