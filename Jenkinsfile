@@ -80,7 +80,7 @@ pipeline {
                     } finally {
                         sh '''
                         echo 'Scanning source code...'
-                        snyk code test || true
+                        snyk code test --exclude=tests || true
 
                         echo 'Scanning Docker image...'
                         snyk container test cozylightbookstore-cozybookstore:${BUILD_VERSION} --exclude-base > snyk_container.log 2>&1 || true
