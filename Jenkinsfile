@@ -83,7 +83,7 @@ pipeline {
                         snyk code test || true
 
                         echo 'Scanning Docker image...'
-                        snyk container test cozylightbookstore-cozybookstore:${BUILD_VERSION} --exclude-base || true
+                        snyk container test cozylightbookstore-cozybookstore:${BUILD_VERSION} --exclude-base > snyk_container.log 2>&1 || true
                         
                         echo 'Creating monitor snapshot...'
                         snyk monitor --all-projects
