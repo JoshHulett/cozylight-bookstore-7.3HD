@@ -201,13 +201,15 @@ app.post('/submitenquiry', (req, res, next) => {
         console.error("Error inserting enquiry response.", err.message);
       } else {
         console.log("Successfully inserted enquiry response!")
-        enquirydb.all("SELECT * FROM ENQUIRY", [], (err, rows) => {
-          if (err) {
-            console.error("Error fetching enquiry data", err.message);
-          } else {
-            console.log("Enquiry Data:", rows);
-          }
+        if (process.env.NODE_ENV !== 'test') {
+          enquirydb.all("SELECT * FROM ENQUIRY", [], (err, rows) => {
+            if (err) {
+              console.error("Error fetching enquiry data", err.message);
+            } else {
+              console.log("Enquiry Data:", rows);
+            }
         });
+      }
         // render enquiryResults page, parse form inputs
         res.render('enquiryResults', {
           enquirySubmission: req.body
