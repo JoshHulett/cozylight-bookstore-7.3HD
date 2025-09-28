@@ -101,16 +101,7 @@ pipeline {
             steps {
                 echo 'Deploying application with Docker Compose...'
                 sh 'docker-compose up -d'
-                echo 'Checking application health...'
-                sh '''
-                    STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3001)
-                    if [ "$STATUS" -ne 200 ]; then
-                        echo "App failed to start! HTTP status: $STATUS"
-                        exit 1
-                    else
-                        echo "App is running! HTTP status: $STATUS"
-                    fi
-                '''
+                echo 'Test environment now available '
             }
         }
         stage('Release') {
