@@ -206,4 +206,56 @@ describe('CozyLight Bookstore Database tests', () => {
             }
         );
     });
-})
+});
+
+describe('POST /submitenquiry DB error handling', () => {
+    let runSpy, allSpy;
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    it('should handle DB insertion error gracefully', async () => {
+        // temporarily override run to simulate insertion failure
+        runSpy = jest.spyOn(enquiryDB, 'run').mockImplementation((query, params, cb) => cb(new Error('Insertion failed')));
+
+        const res = await request(app)
+            .post('/submitenquiry')
+            .send({
+                firstname: 'John',
+                surname: 'Doe',
+                email: 'john@test.com',
+                mobile: '0412345678',
+                address: '123 St',
+                state: 'VIC',
+                postcode: '3000',
+                message: 'Hello',
+                reason: 'General'
+            });
+
+        expect(res.statusCode).toBe(200); // your app still renders enquiryResults
+        expect(runSpy).toHaveBeenCalled();
+    });
+
+    it('should handle DB fetch error after insertion', async () => {
+        runSpy = jest.spyOn(enquiryDB, 'run').mockImplementation((query, params, cb) => cb(null));
+        allSpy = jest.spyOn(enquiryDB, 'all').mockImplementation((query, params, cb) => cb(new Error('Fetch failed')));
+
+        const res = await request(app)
+            .post('/submitenquiry')
+            .send({
+                firstname: 'John',
+                surname: 'Doe',
+                email: 'john@test.com',
+                mobile: '0412345678',
+                address: '123 St',
+                state: 'VIC',
+                postcode: '3000',
+                message: 'Hello',
+                reason: 'General'
+            });
+
+        expect(res.statusCode).toBe(200); // still renders enquiryResults
+        expect(allSpy).toHaveBeenCalled();
+    });
+});
