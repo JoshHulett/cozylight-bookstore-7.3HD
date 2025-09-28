@@ -216,7 +216,6 @@ describe('POST /submitenquiry DB error handling', () => {
     });
 
     it('should handle DB insertion error gracefully', async () => {
-        // temporarily override run to simulate insertion failure
         runSpy = jest.spyOn(enquiryDB, 'run').mockImplementation((query, params, cb) => cb(new Error('Insertion failed')));
 
         const res = await request(app)
@@ -233,7 +232,7 @@ describe('POST /submitenquiry DB error handling', () => {
                 reason: 'General'
             });
 
-        expect(res.statusCode).toBe(200); // your app still renders enquiryResults
+        expect(res.statusCode).toBe(200);
         expect(runSpy).toHaveBeenCalled();
     });
 
@@ -255,7 +254,7 @@ describe('POST /submitenquiry DB error handling', () => {
                 reason: 'General'
             });
 
-        expect(res.statusCode).toBe(200); // still renders enquiryResults
+        expect(res.statusCode).toBe(200);
         expect(allSpy).toHaveBeenCalled();
     });
 });
